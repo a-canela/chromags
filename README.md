@@ -8,7 +8,7 @@ Official repository for the paper **ChromaGS: Text-Driven Semantic Editing of 4D
 ²Institut de Robòtica i Informàtica Industrial, CSIC-UPC
 
 [![Project Page](https://img.shields.io/badge/Project_Page-blue)](https://a-canela.github.io/chromags/)
-[![arXiv](https://img.shields.io/badge/arXiv-XXXX.XXXXX-b31b1b.svg)](https://arxiv.org/abs/2610.03441)
+[![arXiv](https://img.shields.io/badge/arXiv-2610.03441-b31b1b.svg)](https://arxiv.org/abs/2610.03441)
 [![License: MIT](https://img.shields.io/badge/License-MIT-3CA34B.svg)](https://opensource.org/licenses/MIT)
 
 **TL;DR:** ChromaGS enables real-time (~50 ms), deterministic, language-guided semantic color editing of animatable Gaussian head avatars at render time without retraining, preserving identity and fine appearance details.
