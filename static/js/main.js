@@ -12,13 +12,14 @@
     const stops = [1, 2, 3, 4, 5].map((i) => css.getPropertyValue(`--palette-${i}`).trim());
     const link = $("link[rel='icon']");
     if (!link || stops.some((c) => !c)) return;
-    // A ring of elongated splats, one per palette hue (a tiny "color wheel" of Gaussians).
-    const splats = stops.map((c, i) => {
-      const a = -90 + i * 72;
-      return `<ellipse cx="32" cy="17" rx="7.5" ry="12.5" transform="rotate(${a + 90} 32 32)" fill="${c}" opacity=".92"/>`;
-    }).join("");
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0f172a"/>` +
-      splats + `<circle cx="32" cy="32" r="5" fill="#fff" opacity=".9"/></svg>`;
+    // A single anisotropic Gaussian splat filled with the brand hue gradient, plus a soft highlight.
+    const offs = [0, 0.27, 0.52, 0.76, 1];
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs>` +
+      `<linearGradient id="g" x1="0" y1="0" x2="1" y2="0">${stops.map((c, i) => `<stop offset="${offs[i]}" stop-color="${c}"/>`).join("")}</linearGradient>` +
+      `<radialGradient id="h" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>` +
+      `</defs><rect width="64" height="64" rx="14" fill="#0f172a"/>` +
+      `<ellipse cx="32" cy="32" rx="25" ry="12.5" transform="rotate(-32 32 32)" fill="url(#g)"/>` +
+      `<ellipse cx="25" cy="27" rx="9" ry="4" transform="rotate(-32 25 27)" fill="url(#h)"/></svg>`;
     link.href = "data:image/svg+xml," + encodeURIComponent(svg);
   })();
 
@@ -154,7 +155,7 @@
     const promptBtns = $$(".prompt-btn");
 
     const state = {
-      identity: identityBtns.find((b) => b.getAttribute("aria-pressed") === "true")?.dataset.identity || "duda",
+      identity: identityBtns.find((b) => b.getAttribute("aria-pressed") === "true")?.dataset.identity || "obama",
       edit: promptBtns.find((b) => b.getAttribute("aria-pressed") === "true")?.dataset.edit || "red matte lipstick",
       wantPlay: true,
       visible: false,
