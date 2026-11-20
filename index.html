@@ -1,84 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChromaGS: Text-Driven Semantic Editing of 4D Gaussian Avatars</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f8f9fa;
-            color: #212529;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-        }
-        .container {
-            max-width: 800px;
-            padding: 40px 20px;
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            margin: 20px;
-        }
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            line-height: 1.25;
-            color: #111111;
-            margin-bottom: 10px;
-        }
-        .conference {
-            font-size: 1.15rem;
-            color: #0066cc;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 30px;
-        }
-        .divider {
-            height: 2px;
-            width: 60px;
-            background-color: #0066cc;
-            margin: 0 auto 30px auto;
-        }
-        .status-badge {
-            display: inline-block;
-            background-color: #e6f2ff;
-            color: #0056b3;
-            padding: 12px 28px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            border: 1px solid #b3d7ff;
-            margin-top: 10px;
-        }
-        .footer {
-            margin-top: 40px;
-            font-size: 0.85rem;
-            color: #6c757d;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChromaGS: Text-Driven Semantic Editing of 4D Gaussian Avatars</title>
+  <meta name="description" content="ChromaGS (CGIP 2026) enables real-time (~50 ms), deterministic, language-guided semantic color editing of animatable 3D Gaussian head avatars at render time, without retraining, while preserving identity and fine appearance details.">
+  <meta name="keywords" content="ChromaGS, 3D Gaussian Splatting, head avatars, semantic editing, color editing, language-guided editing, FLAME, SAM3, CGIP 2026">
+  <meta name="author" content="Antonio Canela, Jordi Sànchez-Riera">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="canonical" href="https://a-canela.github.io/chromags/">
+
+  <!-- Open Graph / social -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ChromaGS: Text-Driven Semantic Editing of 4D Gaussian Avatars">
+  <meta property="og:description" content="Recolor semantic regions of animatable 3D Gaussian head avatars with natural language, instantly and deterministically, while preserving identity and fine details. CGIP 2026.">
+  <meta property="og:url" content="https://a-canela.github.io/chromags/">
+  <meta property="og:image" content="https://a-canela.github.io/chromags/static/images/social_card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ChromaGS (CGIP 2026)">
+  <meta name="twitter:description" content="Text-driven semantic editing of 4D Gaussian avatars.">
+  <meta name="twitter:image" content="https://a-canela.github.io/chromags/static/images/social_card.jpg">
+
+  <!-- Google Scholar -->
+  <meta name="citation_title" content="ChromaGS: Text-Driven Semantic Editing of 4D Gaussian Avatars">
+  <meta name="citation_author" content="Canela, Antonio">
+  <meta name="citation_author" content="Sanchez-Riera, Jordi">
+  <meta name="citation_conference_title" content="International Conference on Computer Graphics and Image Processing (CGIP)">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_arxiv_id" content="2610.03441">
+
+  <link rel="icon" href="static/images/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+  <script>document.documentElement.classList.add("js");</script>
 </head>
+
 <body>
+<a class="skip-link" href="#overview">Skip to content</a>
 
-<div class="container">
-    <h1>ChromaGS: Text-Driven Semantic Editing of 4D Gaussian Avatars</h1>
-    <div class="conference">CGIP 2026</div>
-    <div class="divider"></div>
-    
-    <p style="font-size: 1.2rem; color: #495057; margin-bottom: 25px;">
-        Official project page and source code repository.
-    </p>
-    
-    <div class="status-badge">
-        🚀 Code and Project Page Coming Soon!
+<!-- ============================== HERO ============================== -->
+<header class="hero" id="top">
+  <div class="hero-splats" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="wrap">
+    <h1 class="masthead"><span class="grad-text">Chroma</span>GS</h1>
+    <p class="paper-title">Text-Driven Semantic Editing of 4D&nbsp;Gaussian Avatars</p>
+
+    <div class="authors">
+      <span><a href="https://orcid.org/0009-0002-1943-5170" target="_blank" rel="noopener">Antonio Canela</a><sup>1,2</sup></span>
+      <span><a href="https://orcid.org/0000-0002-4803-5742" target="_blank" rel="noopener">Jordi Sànchez-Riera</a><sup>2</sup></span>
     </div>
-</div>
+    <div class="affiliations">
+      <span><sup>1</sup>Universitat Politècnica de Catalunya (UPC)</span>
+      <span><sup>2</sup>Institut de Robòtica i Informàtica Industrial, CSIC-UPC</span>
+    </div>
 
+    <div class="aff-logos">
+      <a href="https://www.upc.edu/" target="_blank" rel="noopener" title="Universitat Politècnica de Catalunya"><img class="logo-upc" src="static/images/upc.png" alt="Universitat Politècnica de Catalunya (UPC)"></a>
+      <a href="https://www.iri.upc.edu/" target="_blank" rel="noopener" title="Institut de Robòtica i Informàtica Industrial"><img src="static/images/iri.png" alt="Institut de Robòtica i Informàtica Industrial (IRI)"></a>
+      <a href="https://www.csic.es/" target="_blank" rel="noopener" title="Consejo Superior de Investigaciones Científicas"><img src="static/images/csic.svg" alt="Consejo Superior de Investigaciones Científicas (CSIC)"></a>
+    </div>
+
+    <p class="conference">
+      <span class="conf-line" tabindex="0" aria-describedby="conf-stats">Accepted for <strong>Oral</strong> presentation at the <strong>International Conference on Computer Graphics and Image Processing (<a href="https://www.cgip.org/" target="_blank" rel="noopener noreferrer">CGIP 2026</a>)</strong>
+        <span class="conf-tip" id="conf-stats" role="tooltip">
+          <span class="conf-tip-row"><span>Acceptance rate</span><b>Not published</b></span>
+          <span class="conf-tip-row"><span>Oral rate</span><b>100%</b></span>
+        </span>
+      </span>
+    </p>
+
+    <nav class="link-buttons" aria-label="Paper resources">
+      <a class="btn" href="https://arxiv.org/abs/2610.03441" target="_blank" rel="noopener">
+        <span class="icon"><i class="ai ai-arxiv" aria-hidden="true"></i></span><span>arXiv</span>
+      </a>
+      <a class="btn" href="https://github.com/a-canela/chromags" target="_blank" rel="noopener" title="Code repository (release coming soon)">
+        <span class="icon"><svg viewBox="0 0 496 512" aria-hidden="true"><path fill="currentColor" d="M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z"/></svg></span>
+        <span>Code</span><span class="tag">Soon</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================== SECTION NAV ============================== -->
+<nav class="section-nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="nav-brand" href="#top"><span class="grad-text">Chroma</span>GS</a>
+    <div class="nav-links">
+      <a class="nav-link" href="#overview">Overview</a>
+      <a class="nav-link" href="#results">Results</a>
+      <a class="nav-link" href="#code">Code</a>
+      <a class="nav-link" href="#acknowledgments" aria-label="Acknowledgments"><span class="nav-long">Acknowledgments</span><span class="nav-short">Funding</span></a>
+      <a class="nav-link" href="#citation">Cite</a>
+    </div>
+    <span class="nav-spacer" aria-hidden="true"></span>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============================== OVERVIEW ============================== -->
+<section class="section" id="overview">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">01 — Overview</p>
+      <h2>Recolor an animatable avatar with words.</h2>
+      <p class="lead">Given a trained animatable 3D Gaussian head avatar and a free-form instruction such as <em>“red matte lipstick”</em> or <em>“skin lighter and green eyes”</em>, ChromaGS recolors exactly the requested semantic regions in about <strong>50&nbsp;ms</strong>, directly at render time: no retraining, no diffusion, and the same result every time.</p>
+    </div>
+
+    <figure class="figure reveal">
+      <a href="static/images/teaser.jpg" target="_blank" rel="noopener" aria-label="Open the teaser figure at full resolution">
+        <img src="static/images/teaser.jpg" width="3200" height="613" alt="Teaser: an original avatar passes through ChromaGS (SAM3, Gaussian model training, text prompt decomposition and Gaussian rendering) and is edited with three prompts: (b) 'give me much darker eyebrows', (c) 'I wanna have my hair dark' and (d) 'skin lighter and green eyes'.">
+      </a>
+      <figcaption><strong>Real-time, language-guided color editing of 3D Gaussian head avatars.</strong> Given a trained avatar (a), users instantly modify the colors of semantic regions through natural-language instructions, (b) <em>“give me much darker eyebrows”</em>, (c) <em>“I wanna have my hair dark”</em>, (d) <em>“skin lighter and green eyes”</em>, with edits applied directly at rendering time, bypassing the need for per-edit optimization.</figcaption>
+    </figure>
+
+
+    <div class="abstract-grid">
+      <div class="abstract reveal">
+        <h3>Abstract</h3>
+        <p>We present <strong>ChromaGS</strong>, a method for real-time, language-guided color editing of animatable 3D Gaussian head avatars. Given a trained animatable avatar, users can instantly modify the color of semantic regions through natural language, with edits applied at render time and no retraining required.</p>
+        <p>Our key insight is to augment each Gaussian primitive with learned soft assignments to semantic regions and decompose colors into region-level base colors and Gaussian-level residuals. This decomposition enables coherent color transfer: modifying a region’s base color propagates naturally through all associated Gaussians while preserving fine appearance details encoded in residuals. A two-stage language pipeline translates text instructions into target colors, supporting both absolute specifications and relative adjustments. Unlike generative editing methods that may introduce unintended modifications, our approach provides deterministic, precisely localized semantic control. Experiments demonstrate faithful appearance preservation and intuitive interaction across diverse subjects.</p>
+      </div>
+      <aside class="contrib-card reveal" aria-labelledby="contrib-title">
+        <h3 id="contrib-title">Contributions</h3>
+        <ol class="contrib-list">
+          <li><span class="num">1</span><strong>A semantic Gaussian representation</strong> in which every primitive carries learned soft assignments to facial regions (hair, eyebrows, eyes, lips, skin), enabling localized color editing that stays consistent across expressions and viewpoints.</li>
+          <li><span class="num">2</span><strong>A color decomposition</strong> that separates region-level base colors from per-Gaussian residuals, so that changing a base color recolors the whole region while texture, shading and specular highlights are preserved.</li>
+          <li><span class="num">3</span><strong>A two-stage language pipeline</strong> (semantic parsing + deterministic color resolving) for robust, intuitive color specification, handling both absolute (<em>“olive skin”</em>) and relative (<em>“darker”</em>) instructions.</li>
+        </ol>
+      </aside>
+    </div>
+
+    <div class="subsection" id="method">
+      <div class="subsection-head reveal">
+        <h3>Method</h3>
+        <p>ChromaGS builds on a FLAME-bound animatable Gaussian avatar. Gaussians learn <em>which</em> region they belong to from SAM3 masks, and <em>what</em> color they show is split into a shared region base color plus a local residual. A text instruction is turned into new base colors, which are swapped in at render time.</p>
+      </div>
+
+      <figure class="figure reveal">
+        <a href="static/images/method.png" target="_blank" rel="noopener" aria-label="Open the method diagram at full resolution">
+          <img src="static/images/method.png" width="3200" height="780" loading="lazy" alt="Overview of ChromaGS. (a) Semantic masks extraction: input frames and text prompts (hair, eyebrows, eyes, lips, skin) are fed to SAM3, producing semantic masks. (b) Text-guided color editing: (1) semantic parsing with Flan-T5-Small turns 'make skin darker and blue eyes' into region/type/color triplets; (2) color resolving handles absolute colors (embed description, cosine similarity) and relative modifiers (convert to HSV, heuristic modifier), yielding hex colors per region. (c) Semantic-aware Gaussian splatting: (1) FLAME parametric face model, (2) Gaussian model training with semantic logits and residual colors under semantic supervision, (3) color blending at rendering: base colors times semantic probabilities plus residual color, followed by rasterization.">
+        </a>
+        <figcaption><strong>Overview of ChromaGS.</strong> <strong>(a)</strong> SAM3 extracts semantic masks from input frames. <strong>(b)</strong> Text-guided editing: Flan-T5-Small parses instructions into structured text; a resolver handles absolute colors (palette lookup via embedding similarity) and relative modifiers (HSV shifts). <strong>(c)</strong> Gaussians learn semantic logits (supervised by mask cross-entropy) and decompose color into base colors <span class="math"><b>b</b><sub>k</sub></span> plus residuals; editing replaces <span class="math"><b>b</b><sub>k</sub></span> while preserving fine details in residuals. <span class="zoom-hint">Click to enlarge.</span></figcaption>
+      </figure>
+
+      <div class="stage-list">
+        <article class="stage s1 reveal">
+          <span class="stage-tag">(a) · Semantic masks</span>
+          <h4>Open-vocabulary segmentation with SAM3</h4>
+          <p>For each semantic class (hair, eyebrows, eyes, lips, skin) and each training frame, SAM3 is prompted with text to produce a binary mask <span class="math">M<sub>k</sub></span>. Iris masks are obtained from the eye masks by detecting ellipses and warping an annular template.</p>
+          <p>Masks are made mutually exclusive by prioritizing smaller regions (e.g. iris over sclera) to ensure proper layering. SAM3 is temporally consistent, and since supervision is aggregated over hundreds of frames, occasional segmentation noise is naturally absorbed during training.</p>
+        </article>
+
+        <article class="stage s2 reveal">
+          <span class="stage-tag">(b) · Text-guided color editing</span>
+          <h4>Parse, then resolve</h4>
+          <p><strong>Semantic parsing.</strong> A fine-tuned Flan-T5-Small turns the instruction into a structured string <em>region, color, type</em>, with multiple edits separated by semicolons. This small output space is far easier to learn than direct RGB prediction.</p>
+          <div class="parse-demo" aria-label="Parsing example"><span class="q">“make skin darker and blue eyes”</span><br><span class="c">→</span> skin, darker, relative; eyes, blue, absolute</div>
+          <p><strong>Color resolving</strong> is deterministic:</p>
+          <ul>
+            <li><strong>Absolute</strong> (<em>“olive skin”</em>): the description is embedded with all-MiniLM-L6-v2 and matched by cosine similarity against region-specific palettes of anatomically plausible colors (e.g. Fitzpatrick skin tones, melanin-based iris colors).</li>
+            <li><strong>Relative</strong> (<em>“darker”</em>, <em>“more saturated”</em>): the current region color is converted to HSV and shifted by deterministic modifiers.</li>
+          </ul>
+        </article>
+
+        <article class="stage s3 reveal">
+          <span class="stage-tag">(c) · Semantic-aware Gaussians</span>
+          <h4>Semantic logits and color decomposition</h4>
+          <p>Each Gaussian gets semantic logits <span class="math"><b>s</b><sub>i</sub> ∈ ℝ<sup>K</sup></span> with soft probabilities <span class="math"><b>p</b><sub>i</sub> = softmax(<b>s</b><sub>i</sub>)</span>, rendered with the differentiable rasterizer and supervised by a pixel-wise cross-entropy against per-class blurred masks. Its color is a semantic blend of region base colors plus an expression-dependent SH residual:</p>
+          <div class="equation"><i>c</i><sub>i</sub><sup>final</sup> = Σ<sub>k</sub> <i>p</i><sub>i,k</sub> <span class="bold">b</span><sub>k</sub> + <i>c</i><sub>i</sub><sup>res</sup></div>
+          <p>Editing simply swaps base colors, so only the targeted regions shift while residuals keep the details:</p>
+          <div class="equation"><i>c</i><sub>i</sub><sup>edited</sup> = <i>c</i><sub>i</sub><sup>final</sup> + Σ<sub>k</sub> <i>p</i><sub>i,k</sub> (<span class="bold">b</span><sub>k</sub><sup>target</sup> − <span class="bold">b</span><sub>k</sub>)</div>
+          <p><strong>Cross-region adaptation:</strong> classes are weighted mixes of mask channels (e.g. <em>skin</em> also draws on lips at 0.3 and eyebrows at 0.2), so a skin-tone edit shifts pigment-correlated regions coherently.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== RESULTS ============================== -->
+<section class="section alt" id="results">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">02 — Results</p>
+      <h2>Localized, deterministic edits that keep the person.</h2>
+      <p class="lead">Compare each unedited avatar with its recolored counterpart. Both are rendered from the <em>same</em> trained avatar and driven by the same pose and expression sequence: the edit is just a change of region base colors applied at render time.</p>
+    </div>
+
+    <!-- Qualitative: interactive video comparison -->
+    <div class="subsection" style="margin-top:0" id="qualitative">
+      <div class="subsection-head reveal">
+        <h3>Qualitative results</h3>
+      </div>
+      <div class="viewer-grid">
+        <div class="controls reveal">
+          <div>
+            <p class="control-label" id="identity-label">Identity</p>
+            <div class="identity-picker" role="group" aria-labelledby="identity-label">
+              <button type="button" class="identity-btn" data-identity="duda" aria-pressed="true"><img src="static/images/identities/duda.jpg" alt="" width="256" height="256"><span class="name">Duda</span></button>
+              <button type="button" class="identity-btn" data-identity="obama" aria-pressed="false"><img src="static/images/identities/obama.jpg" alt="" width="256" height="256"><span class="name">Obama</span></button>
+              <button type="button" class="identity-btn" data-identity="justin" aria-pressed="false"><img src="static/images/identities/justin.jpg" alt="" width="256" height="256"><span class="name">Justin</span></button>
+              <button type="button" class="identity-btn" data-identity="yufeng" aria-pressed="false"><img src="static/images/identities/yufeng.jpg" alt="" width="256" height="256"><span class="name">Yufeng</span></button>
+            </div>
+          </div>
+          <div>
+            <p class="control-label" id="prompt-label">Edit prompt</p>
+            <div class="prompt-picker" role="group" aria-labelledby="prompt-label">
+              <button type="button" class="prompt-btn" data-edit="red matte lipstick" aria-pressed="true"><span class="swatch" style="--sw:#a3313a" aria-hidden="true"></span><span class="txt"><span class="region">lips</span><span class="q">“red matte lipstick”</span></span></button>
+              <button type="button" class="prompt-btn" data-edit="dark hair" aria-pressed="false"><span class="swatch" style="--sw:#29261f" aria-hidden="true"></span><span class="txt"><span class="region">hair</span><span class="q">“dark hair”</span></span></button>
+              <button type="button" class="prompt-btn" data-edit="black eyebrows" aria-pressed="false"><span class="swatch" style="--sw:#1d1a17" aria-hidden="true"></span><span class="txt"><span class="region">eyebrows</span><span class="q">“black eyebrows”</span></span></button>
+              <button type="button" class="prompt-btn" data-edit="green eyes" aria-pressed="false"><span class="swatch" style="--sw:#5a7a45" aria-hidden="true"></span><span class="txt"><span class="region">eyes</span><span class="q">“green eyes”</span></span></button>
+            </div>
+          </div>
+          <p class="viewer-note"><strong>Drag</strong> across the video to move the divider: the <strong>left</strong> side shows the unedited avatar, the <strong>right</strong> side the edited one. With the viewer focused, use <kbd>←</kbd> <kbd>→</kbd> to move the divider and <kbd>Space</kbd> to play or pause.</p>
+        </div>
+
+        <div class="viewer-col reveal">
+          <div class="compare" id="compare" tabindex="0" role="slider" aria-label="Before/after divider position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+            <video class="video-a" muted playsinline loop preload="none" poster="static/videos/duda/unedited/poster.jpg" aria-label="Unedited avatar"></video>
+            <video class="video-b" muted playsinline loop preload="none" poster="static/videos/duda/red%20matte%20lipstick/poster.jpg" aria-label="Edited avatar"></video>
+            <span class="compare-label left">Unedited</span>
+            <span class="compare-label right">“red matte lipstick”</span>
+            <div class="compare-handle" aria-hidden="true">
+              <span class="compare-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+            </div>
+            <span class="compare-spinner" aria-hidden="true"></span>
+            <div class="compare-progress" aria-hidden="true"><span></span></div>
+          </div>
+          <div class="viewer-toolbar">
+            <button type="button" class="icon-btn" id="play-toggle" aria-label="Pause videos">
+              <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+              <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" hidden><path d="M7 5v14l12-7z"/></svg>
+              <span class="txt">Pause</span>
+            </button>
+            <button type="button" class="icon-btn" id="restart" aria-label="Restart videos">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+              <span>Restart</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection reveal" style="margin-top:clamp(40px,6vw,72px)">
+        <div class="tabs" role="tablist" aria-label="Comparison figures">
+          <button type="button" class="tab" role="tab" id="fig-tab-baselines" aria-selected="true" aria-controls="fig-baselines">Comparison with baselines</button>
+          <button type="button" class="tab" role="tab" id="fig-tab-ablation" aria-selected="false" aria-controls="fig-ablation" tabindex="-1">Ablation: semantic supervision</button>
+        </div>
+        <div class="tab-panel" id="fig-baselines" role="tabpanel" aria-labelledby="fig-tab-baselines">
+          <figure class="figure narrow">
+            <a href="static/images/results.jpg" target="_blank" rel="noopener" aria-label="Open the baseline comparison at full resolution">
+              <img src="static/images/results.jpg" width="2200" height="1646" loading="lazy" alt="Three subjects edited with (1) 'olive skin tone', (2) 'dark hair' and (3) 'green eyes': (a) input frame, (b) InstructPix2Pix, (c) GaussianAvatar-Editor, (d) ChromaGS (ours).">
+            </a>
+            <figcaption><strong>Qualitative comparison</strong> for skin, hair and eye edits across three subjects: (a) input frame, (b) InstructPix2Pix, (c) GaussianAvatar-Editor, (d) ChromaGS. Our method produces localized, natural color changes that preserve identity and fine details (e.g. specular highlights, skin texture). Both GaussianAvatar-Editor and InstructPix2Pix exhibit color bleeding into unrelated regions and over-saturated tones.</figcaption>
+          </figure>
+        </div>
+        <div class="tab-panel" id="fig-ablation" role="tabpanel" aria-labelledby="fig-tab-ablation" hidden>
+          <figure class="figure narrow">
+            <a href="static/images/ablation.jpg" target="_blank" rel="noopener" aria-label="Open the ablation figure at full resolution">
+              <img src="static/images/ablation.jpg" width="1800" height="1772" loading="lazy" alt="Ablation of semantic supervision for (1) 'blue eyes', (2) 'blond hair' and (3) 'red matte lipstick': (a) input frame, (b) ours without the semantic loss, (c) ours.">
+            </a>
+            <figcaption><strong>Ablation: semantic supervision.</strong> Without <span class="math">ℒ<sub>sem</sub></span>, edits spread to unrelated areas: blue eyes tint the hair and tongue, blond hair bleeds into the face and clothing, and red lipstick affects the skin color as well. Our full model produces clean, confined edits.</figcaption>
+          </figure>
+          <div class="table-wrap" style="margin-top:18px">
+            <table class="data" aria-label="Quantitative ablation of semantic supervision">
+              <thead>
+                <tr><th scope="col">Method</th><th scope="col">CLIP ↑</th><th scope="col">Identity ↑</th><th scope="col">Context ↑</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Ours w/o ℒ<sub>sem</sub></td><td>0.198</td><td>0.969</td><td>0.967</td></tr>
+                <tr class="ours"><td>ChromaGS (Ours)</td><td class="best">0.213</td><td class="best">0.990</td><td class="best">0.986</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="chart-note">Without <span class="math">ℒ<sub>sem</sub></span>, color changes spread beyond the target region, degrading all three metrics. Unlike the diffusion baselines, which apply intense, globally visible color shifts, the unguided leakage here dilutes the edit, so CLIP drops as well.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quantitative -->
+    <div class="subsection" id="quantitative">
+      <div class="subsection-head reveal">
+        <h3>Quantitative results</h3>
+        <p><strong>Comparison with baselines</strong> (Table 2 of the paper) on the pre-trained scenes publicly released by GaussianAvatar-Editor. Each scene is edited with 14 diverse color edits spanning hair, eyes, skin, lips and eyebrows, yielding about 10k edited frames per method at 512&nbsp;×&nbsp;512.</p>
+      </div>
+      <div class="reveal">
+        <div class="tabs" role="tablist" aria-label="Quantitative results view">
+          <button type="button" class="tab" role="tab" id="q-tab-chart" aria-selected="true" aria-controls="q-chart">Charts</button>
+          <button type="button" class="tab" role="tab" id="q-tab-table" aria-selected="false" aria-controls="q-table" tabindex="-1">Table</button>
+        </div>
+        <div class="tab-panel" id="q-chart" role="tabpanel" aria-labelledby="q-tab-chart">
+          <div class="metric-families" id="metric-families"></div>
+        </div>
+        <div class="tab-panel" id="q-table" role="tabpanel" aria-labelledby="q-tab-table" hidden>
+          <div class="table-wrap">
+            <table class="data">
+              <thead>
+                <tr><th scope="col">Method</th><th scope="col">CLIP ↑</th><th scope="col">Identity ↑</th><th scope="col">Context ↑</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>InstructPix2Pix</td><td class="best">0.231</td><td>0.691</td><td>0.790</td></tr>
+                <tr><td>GaussianAvatar-Editor</td><td>0.229</td><td>0.863</td><td>0.790</td></tr>
+                <tr class="ours"><td>ChromaGS (Ours)</td><td>0.212</td><td class="best">0.986</td><td class="best">0.980</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="chart-note"><strong>CLIP</strong> measures image–text alignment (averaged over ViT-L/14, ViT-B/16 and ViT-B/32), <strong>Identity</strong> is the ArcFace cosine similarity between edited and unedited renders, and <strong>Context</strong> is 1&nbsp;−&nbsp;LPIPS outside the target region. ChromaGS achieves substantially higher identity and context preservation, reflecting its ability to confine edits precisely to the target region. The baselines’ slightly higher CLIP scores reflect a limitation of the metric itself: a diffusion editor that tints the entire face green when asked for <em>“green eyes”</em> produces a stronger global color signal that CLIP rewards, even though the edit is spatially incorrect.</p>
+      </div>
+
+      <div class="subsection" style="margin-top:clamp(40px,6vw,72px)" id="runtime">
+        <div class="subsection-head reveal">
+          <h3>Editing speed</h3>
+          <p><strong>Runtime comparison</strong> (Table 1 of the paper). ChromaGS pays a one-time training cost and then decouples editing from optimization entirely.</p>
+        </div>
+        <div class="runtime-grid reveal">
+          <div class="runtime-card">
+            <h4>InstructPix2Pix <span>2D, per frame</span></h4>
+            <dl>
+              <dt>Train</dt><dd>N/A</dd>
+              <dt>Edit</dt><dd>~400 ms / frame</dd>
+              <dt>Render</dt><dd>N/A</dd>
+            </dl>
+            <p>No per-subject optimization, but every frame is processed independently by diffusion: no 3D awareness, limited throughput and severe temporal flickering.</p>
+          </div>
+          <div class="runtime-card">
+            <h4>GaussianAvatar-Editor <span>3D, per edit</span></h4>
+            <dl>
+              <dt>Train + Edit</dt><dd>~800 s (coupled)</dd>
+              <dt>Render</dt><dd>&gt;100 FPS</dd>
+            </dl>
+            <p>Editing and training are coupled into a single optimization loop that must be repeated for every new edit.</p>
+          </div>
+          <div class="runtime-card ours">
+            <h4>ChromaGS (Ours) <span>3D, at render time</span></h4>
+            <dl>
+              <dt>Train</dt><dd>~800 s (once)</dd>
+              <dt>Edit</dt><dd class="hl">~50 ms</dd>
+              <dt>Render</dt><dd>&gt;100 FPS</dd>
+            </dl>
+            <p>Once trained, any color change is applied in ~50&nbsp;ms (mostly language-model inference), three orders of magnitude faster, enabling interactive exploration of diverse edits.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CODE ============================== -->
+<section class="section" id="code">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">03 — Code</p>
+      <h2>Code release.</h2>
+    </div>
+    <div class="soon-card reveal">
+      <div class="soon-body">
+      <span class="soon-pill"><span class="pulse"></span>Coming soon</span>
+      <p>The full code for ChromaGS <strong>will be available soon</strong>. We are currently cleaning up the repository and preparing the release.</p>
+      <p><strong>If you need the code sooner</strong> (for instance, to run comparisons for an upcoming submission), please feel free to <a href="https://github.com/a-canela/chromags/issues/new" target="_blank" rel="noopener"><strong>open an Issue</strong></a> in the repository. Knowing there is active demand will help us prioritize and expedite the release process!</p>
+      </div>
+      <div class="link-buttons">
+        <a class="btn" href="https://github.com/a-canela/chromags/issues/new" target="_blank" rel="noopener">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg></span><span>Open an Issue</span>
+        </a>
+        <a class="btn light" href="https://github.com/a-canela/chromags" target="_blank" rel="noopener">
+          <span class="icon"><svg viewBox="0 0 496 512" aria-hidden="true"><path fill="currentColor" d="M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z"/></svg></span><span>Watch the repository</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== ACKNOWLEDGMENTS ============================== -->
+<section class="section alt" id="acknowledgments">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">04 — Acknowledgments</p>
+      <h2>Acknowledgments.</h2>
+    </div>
+    <div class="ack reveal">
+      <p>This work has been partially supported by project PID2023-151184OB-I00, funded by the Ministerio de Ciencia e Innovación (MCIN) / Agencia Estatal de Investigación (AEI) / 10.13039/501100011033, by the European Social Fund (ESF) “Investing in your future” and by <em>ERDF, EU</em>; and by the industrial doctorate 2021 DI 00102 funded by the Government of Catalonia.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CITATION ============================== -->
+<section class="section" id="citation">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">05 — Cite</p>
+      <h2>Citation.</h2>
+      <p class="lead">If you find our work useful, please consider citing it:</p>
+    </div>
+    <div class="code-block reveal" style="max-width:1100px">
+      <div class="code-title"><span>BibTeX</span><button type="button" class="copy-btn" data-copy="#bibtex">Copy</button></div>
+<pre id="bibtex"><span class="k">@inproceedings</span>{canela2026chromags,
+  title={ChromaGS: Text-Driven Semantic Editing of 4D Gaussian Avatars},
+  author={Canela, Antonio and Sanchez-Riera, Jordi},
+  booktitle={International Conference on Computer Graphics and Image Processing (CGIP)},
+  year={2026}
+}</pre>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><span class="grad-text">Chroma</span>GS</div>
+        <p>Text-Driven Semantic Editing of 4D Gaussian Avatars.</p>
+      </div>
+      <div>
+        <h4>Thanks</h4>
+        <p>This page reuses the template of the <a href="https://a-canela.github.io/manifoldsplat/" target="_blank" rel="noopener">ManifoldSplat</a> project page. The synchronized before/after video comparison is adapted from the project page of <a href="https://gr3en-relight.github.io/" target="_blank" rel="noopener">GR3EN</a>. The header with affiliation logos, the section navigation and the quantitative charts are inspired by the project pages of <a href="https://aolivtous.github.io/publications/mumins.html" target="_blank" rel="noopener">MUMINS</a>, <a href="https://vision-banana.github.io/" target="_blank" rel="noopener">Vision Banana</a> and <a href="https://hanyuc.com/trainspotting/" target="_blank" rel="noopener">Trainspotting</a>.</p>
+        <p>Icons from <a href="https://jpswalsh.github.io/academicons/" target="_blank" rel="noopener">Academicons</a> and <a href="https://fontawesome.com/" target="_blank" rel="noopener">Font Awesome</a>.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Copyright © 2026</span>
+    </div>
+  </div>
+</footer>
+
+<button type="button" class="to-top" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script src="static/js/main.js" defer></script>
 </body>
 </html>
